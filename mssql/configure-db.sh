@@ -9,6 +9,10 @@ DBSTATUS=1
 ERRCODE=1
 i=0
 
+sqlcmdq() {
+  /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $SA_PASSWORD -d master -Q "$@"
+}
+
 while [[ $DBSTATUS -ne 0 ]] && [[ $i -lt 60 ]] && [[ $ERRCODE -ne 0 ]]; do
 	i=$i+1
 	DBSTATUS=$(/opt/mssql-tools/bin/sqlcmd -h -1 -t 1 -U sa -P $SA_PASSWORD -Q "SET NOCOUNT ON; Select SUM(state) from sys.databases")
@@ -22,5 +26,7 @@ if [ $DBSTATUS -ne 0 ] OR [ $ERRCODE -ne 0 ]; then
 fi
 
 # Run the setup script to create the DB and the schema in the DB
-/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $SA_PASSWORD -d master -i setup.sql
-
+sqlcmdq "CREATE DATABASE $MSSQL_DB"
+sqlcmdq "CREATE LOGIN $MSSQL_USER WITH PASSWORD = '$MSSQL_PASSWORD'"
+sqlcmdq "CREATE USER $MSSQL_USER FOR LOGIN $MSSQL_USER"
+sqlcmdq "ALTER SERVER ROLE [sysadmin] ADD MEMBER $MSSQL_USER"

@@ -1,8 +1,8 @@
-version: '3'
+version: '3.8'
 services:
   database:
     container_name: database
-    image: ${DOCKER_REGISTRY-}directusdemomssql
+    image: ${DOCKER_REGISTRY-}directusmssql
     build:
       context: ./mssql
       dockerfile: Dockerfile

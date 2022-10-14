@@ -1,4 +1,4 @@
-# MSSQL backed Directus + Liquibase Demo
+# MSSQL backed Directus and Liquibase demo
 
 ## Dependencies
 Install dependencies via Brew (please view the [Brewfile](Brewfile) for all options):
