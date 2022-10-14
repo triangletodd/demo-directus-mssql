@@ -12,8 +12,14 @@ Install dependencies via Brew (please view the [Brewfile](Brewfile) for all opti
 ## Stopping Directus and MSSQL
 `make stop`
 
-## Destroying your environment (starting over)
+## Destroying your environment
 `make destroy`
+
+## View Logs (ctrl+c to exit)
+`make logs`
+
+## View Running Containers
+`make ps`
 
 ## Managing The Schema
 WIP
