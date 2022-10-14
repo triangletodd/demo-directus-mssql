@@ -8,7 +8,7 @@ services:
       context: ./mssql
       dockerfile: Dockerfile
     ports:
-      - 1434:1433
+      - 1433:1433
     volumes:
       - ./volumes/data/database:/var/opt/mssql
     networks:
