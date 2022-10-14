@@ -3,7 +3,7 @@ THIS_FILE := $(lastword $(MAKEFILE_LIST))
 build:
 	docker compose build $(c)
 up:
-	docker compose up -d --build $(c)
+	chmod 777 volumes volumes/data volumes/data/database volumes/uploads volumes/extensions && docker compose up -d --build $(c)
 destroy:
 	docker compose down -v $(c) && rm -rf volumes/data/database/* volumes/data/database/.system volumes/uploads/* volumes/extensions/*
 start:
