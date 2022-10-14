@@ -11,12 +11,37 @@ databaseChangeLog:
               nullable: false
               primaryKey: true
               primaryKeyName: PK_TEST_TABLE
-            name: TEST_COLUMN
+            name: ID
             type: INT
         - column:
             constraints:
               nullable: false
               primaryKey: false
-            name: TEST_COLUMN2
+            name: TEST_COLUMN
             type: CHAR(4)
-
+- changeSet:
+    id: 2
+    author: tedwards
+    changes:
+    - createTable:
+        tableName: PEOPLE
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: PK_PEOPLE
+            name: ID
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: false
+            name: HAIR_COLOR
+            type: CHAR(50)
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: false
+            name: NAME
+            type: CHAR(50)
