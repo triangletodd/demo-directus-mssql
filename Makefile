@@ -4,12 +4,10 @@ build:
 	docker compose build $(c)
 up:
 	docker compose up -d --build $(c)
-start:
-	docker compose start $(c)
-down:
-	docker compose down $(c)
 destroy:
 	docker compose down -v $(c) && rm -rf volumes/data/database/* volumes/data/database/.system volumes/uploads/* volumes/extensions/*
+start:
+	docker compose start $(c)
 stop:
 	docker compose stop $(c)
 restart:
