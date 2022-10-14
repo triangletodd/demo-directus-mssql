@@ -1,0 +1,70 @@
+version: '3'
+services:
+  database:
+    container_name: database
+    image: ${DOCKER_REGISTRY-}directusdemomssql
+    build:
+      context: ./mssql
+      dockerfile: Dockerfile
+    ports:
+      - 1434:1433
+    volumes:
+      - ./volumes/data/database:/var/opt/mssql
+    networks:
+      - directus
+    environment:
+      ACCEPT_EULA: 'Y'
+      MSSQL_SA_PASSWORD: 'directus'
+      MSSQL_USER: 'directus'
+      MSSQL_PASSWORD: 'directus'
+      MSSQL_DB: 'directus'
+    healthcheck:
+        test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U $$MSSQL_USER -P $$MSSQL_PASSWORD -Q 'SELECT 1' "]
+        interval: 10s
+        retries: 10
+        start_period: 10s
+        timeout: 3s
+
+  cache:
+    container_name: cache
+    image: redis:6
+    networks:
+      - directus
+
+  directus:
+    container_name: directus
+    image: directus/directus:latest
+    ports:
+      - 8055:8055
+    volumes:
+      - ./volumes/uploads:/directus/uploads
+      - ./volumes/extensions:/directus/extensions
+    networks:
+      - directus
+    depends_on:
+      - cache
+      - database
+    environment:
+      KEY: '255d861b-5ea1-5996-9aa3-922530ec40b1'
+      SECRET: '6116487b-cda1-52c2-b5b5-c8022c45e263'
+
+      DB_CLIENT: 'mssql'
+      DB_HOST: 'database'
+      DB_PORT: '5432'
+      DB_DATABASE: 'directus'
+      DB_USER: 'directus'
+      DB_PASSWORD: 'directus'
+
+      CACHE_ENABLED: 'true'
+      CACHE_STORE: 'redis'
+      CACHE_REDIS: 'redis://cache:6379'
+
+      ADMIN_EMAIL: 'admin@example.com'
+      ADMIN_PASSWORD: 'admin'
+
+      # Make sure to set this in production
+      # (see https://docs.directus.io/self-hosted/config-options#general)
+      # PUBLIC_URL: 'https://directus.example.com'
+
+networks:
+  directus:

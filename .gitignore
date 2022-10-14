@@ -1,0 +1,2 @@
+# ignore volumes from our docker containers
+volumes/
