@@ -13,7 +13,7 @@ i=0
 
 while [[ $i -lt 60 ]] && [[ $ERRCODE -ne 0 ]]; do
 	i=$i+1
-	DBSTATUS=$(/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "$MSSQL_SA_PASSWORD" -Q "SET NOCOUNT ON; Select SUM(state) from sys.databases")
+	DBSTATUS="$(/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "$MSSQL_SA_PASSWORD" -Q "SET NOCOUNT ON; Select SUM(state) from sys.databases")"
 	ERRCODE=$?
 	sleep 1
 done

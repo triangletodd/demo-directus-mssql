@@ -1,0 +1,22 @@
+databaseChangeLog:
+- changeSet:
+    id: 1
+    author: tedwards
+    changes:
+    - createTable:
+        tableName: TEST_TABLE
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: PK_TEST_TABLE
+            name: TEST_COLUMN
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: false
+            name: TEST_COLUMN2
+            type: CHAR(4)
+

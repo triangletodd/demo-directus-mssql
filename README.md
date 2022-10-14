@@ -7,7 +7,13 @@ Install dependencies via Brew (please view the [Brewfile](Brewfile) for all opti
 `brew bundle`
 
 ## Starting Directus and MSSQL
-`docker compose up -d --build`
+`make up`
+
+## Stopping Directus and MSSQL
+`make stop`
+
+## Destroying your environment (starting over)
+`make destroy`
 
 ## Managing The Schema
 WIP
