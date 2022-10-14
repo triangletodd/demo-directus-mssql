@@ -1,4 +1,4 @@
-# ignore volumes from our docker containers
+# ignore volume data from our docker containers
 volumes/data/database/*
 volumes/uploads/*
 volumes/extensions/*
