@@ -18,6 +18,8 @@ brew "docker-compose"
 
 # Install the non-cask docker client
 # brew "docker"
+# brew "docker-credential-helper"
 
 # Install colima to manage our VM that runs our docker daemon and seamlessly handle port forwarding
 # brew "colima"
+

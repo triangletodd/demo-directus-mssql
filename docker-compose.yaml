@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   database:
+    restart: always
     container_name: database
     image: ${DOCKER_REGISTRY-}directusmssql
     build:
@@ -14,9 +15,9 @@ services:
       - directus
     environment:
       ACCEPT_EULA: 'Y'
-      MSSQL_SA_PASSWORD: 'directus'
+      MSSQL_SA_PASSWORD: 'P@$$w0rd1234z'
       MSSQL_USER: 'directus'
-      MSSQL_PASSWORD: 'directus'
+      MSSQL_PASSWORD: 'P@$$w0rd1234z'
       MSSQL_DB: 'directus'
     healthcheck:
         test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U $$MSSQL_USER -P $$MSSQL_PASSWORD -Q 'SELECT 1' "]
@@ -26,12 +27,14 @@ services:
         timeout: 3s
 
   cache:
+    restart: always
     container_name: cache
     image: redis:6
     networks:
       - directus
 
   directus:
+    restart: always
     container_name: directus
     image: directus/directus:latest
     ports:
@@ -50,10 +53,10 @@ services:
 
       DB_CLIENT: 'mssql'
       DB_HOST: 'database'
-      DB_PORT: '5432'
+      DB_PORT: '1433'
       DB_DATABASE: 'directus'
       DB_USER: 'directus'
-      DB_PASSWORD: 'directus'
+      DB_PASSWORD: 'P@$$w0rd1234z'
 
       CACHE_ENABLED: 'true'
       CACHE_STORE: 'redis'
